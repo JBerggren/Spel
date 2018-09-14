@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="phaser.min.js"></script>
+<script src="main_state.js"></script>
+</head>
+<body>
+	<div id="game_div"></div>
+
+    <script>
+        var game = new Phaser.Game(640,384, Phaser.AUTO, 'game_div');
+        main_state.initState(game);
+        game.state.add('main', main_state);  
+        game.state.start('main');  
+    </script>
+</body>
+</html>

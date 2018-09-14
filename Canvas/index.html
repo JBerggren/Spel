@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas test</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
+	<link href="style.css" rel="stylesheet" />
+	<script src="jquery-1.11.0.min.js"></script>            
+</head>
+    <body>
+        <div style="width:1024px;margin:0 auto" >
+            <canvas id="canvas" width="1024" height="768"></canvas>
+        </div>
+        <script>
+            var ctx = document.getElementById("canvas").getContext("2d");
+            var bgImg = new Image();
+            bgImg.src = "bg.png";
+            bgImg.onload = function() {
+                ctx.drawImage(bgImg, 0, 0);
+            };
+            var carPosition = { x: 500, y: 50 };
+            var carAcceleration = 100;
+            var carImg = new Image();
+            carImg.src = "car1.png";
+            carImg.onload = function() {
+                ctx.drawImage(carImg, carPosition.x, carPosition.y);
+            };
+            console.clear();
+            $("#canvas").on("mousemove", function(e) {
+                ctx.drawImage(bgImg, 0, 0);
+                
+                ctx.drawImage(carImg, carPosition.x-carImg.width/2, carPosition.y-carImg.height/2);
+                drawRotatedImage(ctx, carImg, carPosition.x, carPosition.y, 30);
+                
+				/*var endLine = {
+                    x: carPosition.x + x,
+                    y: carPosition.y + y,
+                };*/
+				var endPosition = calcPosition(carPosition,{x:e.offsetX,y:e.offsetY},carAcceleration);
+
+                ctx.beginPath();
+                ctx.moveTo(carPosition.x, carPosition.y);
+                ctx.lineTo(endPosition.x,endPosition.y);
+                ctx.stroke();                
+            });
+
+            var TO_RADIANS = Math.PI / 180;
+            function drawRotatedImage(context, image, x, y, angle) {
+
+                // save the current co-ordinate system 
+                // before we screw with it
+                context.save();
+
+                // move to the middle of where we want to draw our image
+                context.translate(x, y);
+
+                // rotate around that point, converting our 
+                // angle from degrees to radians 
+                context.rotate(angle * TO_RADIANS);
+
+                // draw it up and to the left by half the width
+                // and height of the image 
+                context.drawImage(image, -(image.width / 2), -(image.height / 2));
+
+                // and restore the co-ords to how they were when we began
+                context.restore();
+            }
+			
+			function calcPosition(carPosition, mousePosition,maxLength){
+				//Todo: Calc the current distance, if < maxLength use that intead.
+										
+				var offsetFromCar = {
+                    y: mousePosition.y - carPosition.y,
+                    x: mousePosition.x - carPosition.x
+                };
+				
+				var currentDistance = Math.sqrt(Math.abs(offsetFromCar.x*offsetFromCar.x) + Math.abs(offsetFromCar.y*offsetFromCar.y));				
+				if(currentDistance < maxLength){
+					return mousePosition;
+				}
+				                
+                var angle = Math.atan(Math.abs(offsetFromCar.y / offsetFromCar.x));				
+				
+                var x = Math.cos(angle) * maxLength;
+                var y = Math.sin(angle) * maxLength;                				
+				
+                return {
+                    x: carPosition.x < mousePosition.x  ? carPosition.x + x:carPosition.x - x,
+                    y: carPosition.y < mousePosition.y  ? carPosition.y + y:carPosition.y - y,
+                };
+				
+			}
+
+            $("#canvas").on("click", function (e) {                
+                var c = ctx.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+
+                alert(rgbToHex(c[0],c[1],c[2]));
+            });
+
+            function rgbToHex(r, g, b) {
+                if (r > 255 || g > 255 || b > 255)
+                    throw "Invalid color component";
+                return ((r << 16) | (g << 8) | b).toString(16);
+            }
+        </script>
+    </body>
+</html>

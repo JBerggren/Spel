@@ -1,0 +1,52 @@
+html,body{
+	background:black;
+	color:#00ff00;
+	font-family:terminal;
+}
+
+#startGame{
+	font-size:32px;
+	position:absolute;
+	left:50%;
+	top:50%;
+}
+
+#status.gameOver{
+	font-size:32px;
+	position:absolute;
+left:50%;
+top:50%;
+}
+
+#points{
+  position:absolute;
+  top:5px;
+  right:5px;
+   
+}
+
+#player{
+  width:40px;
+  height:40px;
+  background:url(player.png);
+  position:absolute;
+  bottom:5px;
+  left:48%;
+}
+
+.bullet{
+  width:5px;
+  height:10px;
+  background:red;
+  position:absolute;  
+}
+
+
+.enemy{
+  background:url(enemy.png);
+  width:40px;
+  height:40px;
+  position:absolute;
+  top:0;
+}
+

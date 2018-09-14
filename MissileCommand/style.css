@@ -1,0 +1,13 @@
+html,body{
+	background:white;
+	color:#00ff00;
+	font-family:terminal;
+    cursor: crosshair;
+}
+
+#startBtn {
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: 45%;
+}

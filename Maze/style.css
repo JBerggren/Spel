@@ -1,0 +1,14 @@
+html, body {
+    background: black;
+    color: #00ff00;
+    font-family: terminal;
+}
+
+#player {
+    width: 20px;
+    height: 20px;
+    background: #00ff00;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

@@ -1,0 +1,111 @@
+html,body{
+	background:black;
+	color:#00ff00;
+	font-family:terminal;
+}
+
+#startBtn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -20px 0 0 -85px;
+}
+
+#startGame{
+	font-size:32px;
+	position:absolute;
+	left:50%;
+	top:50%;
+}
+
+#status.gameOver{
+	font-size:32px;
+	position:absolute;
+left:50%;
+top:50%;
+}
+
+#points{
+  position:absolute;
+  top:5px;
+  right:5px;
+   
+}
+
+#player{
+  width:40px;
+  height:40px;
+  background:url(player.png);
+  position:absolute;
+  bottom:5px;
+  left:48%;
+}
+
+.bullet{
+  width:5px;
+  height:10px;
+  background:red;
+  position:absolute;  
+}
+
+
+.enemy{
+  background:url(enemy.png);
+  width:40px;
+  height:40px;
+  position:absolute;
+  top:0;
+}
+
+#controlLeft,#controlRight {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    bottom: 0px;
+z-index:1000;
+box-sizing:border-box;
+padding-top:20px;
+padding-left:30px;
+}
+
+#controlLeft {
+    left: 10px;
+}
+
+#controlRight {
+    left: 100px;
+}
+
+#controlFire {
+box-sizing:border-box;
+padding-top:20px;
+    right: 10px;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    bottom: 0px;
+z-index:1000;
+}
+
+#controlFire{
+	opacity:0.3;
+	line-height:50px;
+}
+
+.arrowRight {
+	width: 0; 
+	height: 0; 
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;	
+	border-left: 15px solid #00ff00;
+opacity:0.3;
+}
+
+.arrowLeft {
+	width: 0; 
+	height: 0; 
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent; 	
+	border-right:15px solid #00ff00; 
+opacity:0.3;
+}
