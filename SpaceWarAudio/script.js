@@ -15,13 +15,39 @@ function init() {
     var player;
     var points;
     var pointValue = 0;    
-    var randomWait = 1 * 60;
+    var randomWait = 60;
 	var player = $("#player");
 	var points = $("#points");
     
 	var logicSwitch = true;
 	
-	document.getElementById("soundBG").play();
+ //   document.getElementById("soundBG").play();
+    
+    var commands = {
+        'left': function() {
+          leftKey = true;
+          rightKey = false;
+          upKey = false;
+        },
+        'fire': function(){
+            leftKey = false;
+            rightKey = false;
+            upKey = true;
+        },
+        'right': function(){
+            leftKey = false;
+            rightKey = true;
+            upKey = false;
+        },
+        'stop': function(){
+            leftKey=false;
+            rightKey=false;
+            upKey = false;
+        }
+      };
+      annyang.addCommands(commands);
+      annyang.start({ autoRestart: true, continuous: false });
+
 	
     function render() {
         
@@ -102,7 +128,7 @@ function init() {
             return;
         }
 
-        randomWait = (60 * 2) * Math.random() + 10;
+        randomWait = 60 * 2 * Math.random();
 
         var enemy = $("<div class='enemy'></div>");
         var leftPosition = Math.random() * ($(document).width() - 50);        
@@ -111,7 +137,7 @@ function init() {
     }
 
     function handleInput() {
-        var movement = 20;
+        var movement = 7;
         var position = player.position(),
             documentWidth = $(document).width() - 50;
         if (leftKey) {
@@ -150,7 +176,7 @@ function init() {
         for (var i = 0; i < enemies.length; i++) {
             var enemy = enemies[i];
             position = enemy.offset();
-            enemy.css("top", position.top +3);                        
+            enemy.css("top", position.top +1);                        
             if (position.top + 60 > pageHeight || enemy.data("dead")) {
                 enemy.remove();
                 enemies.splice(i, 1);
@@ -171,25 +197,6 @@ function init() {
         
     }
 
-    $(document).on("keydown", function (e) {
-        if (e.which == 37) {
-            leftKey = true;
-        } else if (e.which == 39) {
-            rightKey = true;
-        } else if (e.which == 38) {
-            upKey = true;
-        } else {
-            //      alert(e.which);
-        }
-    });
-
-    $(document).on("keyup", function (e) {
-        if (e.which == 37) {
-            leftKey = false;
-        } else if (e.which == 39) {
-            rightKey = false;
-        }
-    });
     $("#status").text("Play!");
     
     (function animloop() {                

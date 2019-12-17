@@ -1,4 +1,7 @@
-CACHE MANIFEST
+CACHE MANIFEST 
+#Version 3
+# During development, uncomment next line
+#NETWORK:
 index.html
 enemy.png 
 explosion.mp3 
